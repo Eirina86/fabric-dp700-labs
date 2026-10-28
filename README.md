@@ -16,7 +16,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | # | Lab | What I built | Status |
 |---|-----|--------------|--------|
 | 01 | Analyse data with Apache Spark | Loaded three years of sales CSVs with an explicit schema, added Year/Month columns, saved partitioned Parquet, queried with Spark SQL | ✅ Done |
-| 02 | Ingest data with a pipeline | | ⏳ Next |
+| 02 | Ingest data with a pipeline | Copy data, Delete data, Notebook activity, base parameters | ✅ Done |
 
 ## Problems solved
 
