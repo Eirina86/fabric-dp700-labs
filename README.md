@@ -22,9 +22,9 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 - ### Lab 01
 
-- **CSV with no header row:** `header=true` turned the first order into column names and broke `display()`. Fixed with `header=false` and a defined schema.
-- **NameError in the lab script:** the partitioning step referenced `orders_df`, which was never created. Fixed by using `transformed_df`.
-- **GitHub option greyed out in Fabric:** GitHub sync is off by default at tenant level. Assigned the Fabric Administrator role and enabled the Git integration tenant settings.
+**CSV with no header row:** `header=true` turned the first order into column names and broke `display()`. Fixed with `header=false` and a defined schema.
+**NameError in the lab script:** the partitioning step referenced `orders_df`, which was never created. Fixed by using `transformed_df`.
+**GitHub option greyed out in Fabric:** GitHub sync is off by default at tenant level. Assigned the Fabric Administrator role and enabled the Git integration tenant settings.
   
 - ### Lab 02
   
