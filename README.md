@@ -20,7 +20,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 ## Problems solved
 
-- ### Lab 01 - Analyze data with Apache Spark in Fabric
+### Lab 01 - Analyze data with Apache Spark in Fabric
 
 **CSV with no header row:** `header=true` turned the first order into column names and broke `display()`. Fixed with `header=false` and a defined schema.
 
@@ -28,7 +28,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **GitHub option greyed out in Fabric:** GitHub sync is off by default at tenant level. Assigned the Fabric Administrator role and enabled the Git integration tenant settings.
   
-- ### Lab 02 - Ingest data with a pipeline in Microsoft Fabric
+### Lab 02 - Ingest data with a pipeline in Microsoft Fabric
   
 – Alternating NULL rows after pipeline ingestion
 
@@ -39,6 +39,16 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Fix:** Copy data → Source → File format settings → **Row delimiter: Default (\r, \n, or \r\n)**. Deleted the bad tables and re-ran the pipeline. Verified with **Preview data** before loading.
 
 **Lesson:** Always preview ingested files before trusting the table. Row/column delimiter, quote character and header settings in the Copy activity directly affect data quality downstream.
+
+### Lab 02 – Duplicate rows after re-running the notebook
+**Symptom:** `sales` had 65,436 rows; `new_sales` had 32,718.
+**Cause:** The notebook writes with `.mode("append")`, so each run added the full dataset again.
+**Fix:** `DELETE FROM dbo.sales` in Spark SQL, re-ran once, verified counts via the SQL analytics endpoint.
+**Lesson:** Use `overwrite` or `MERGE` for re-runnable loads.
+
+### Lab 02 – Spark capacity error 430 (TooManyRequestsForCapacity)
+**Cause:** A notebook and a Spark SQL query each held a Spark session on the trial capacity.
+**Fix:** Stopped idle sessions / cancelled in Monitor hub; used the SQL analytics endpoint (no Spark) for read-only checks.
 
 ## Skills
 
