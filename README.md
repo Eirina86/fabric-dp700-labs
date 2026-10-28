@@ -20,7 +20,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 ## Problems solved
 
-### Lab 01 - Analyze data with Apache Spark in Fabric
+### Lab 01 
 
 **CSV with no header row:** `header=true` turned the first order into column names and broke `display()`. Fixed with `header=false` and a defined schema.
 
@@ -28,9 +28,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **GitHub option greyed out in Fabric:** GitHub sync is off by default at tenant level. Assigned the Fabric Administrator role and enabled the Git integration tenant settings.
   
-### Lab 02 - Ingest data with a pipeline in Microsoft Fabric
-  
-– Alternating NULL rows after pipeline ingestion
+### Lab 02 – Alternating NULL rows after pipeline ingestion
 
 **Symptom:** The `sales` table showed every second row as NULL, with a lone `"` in `SalesOrderNumber`. The copied `Files/new_data/sales.csv` had a `"` on its own line after every record.
 
