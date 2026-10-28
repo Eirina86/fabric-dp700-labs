@@ -39,13 +39,19 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Lesson:** Always preview ingested files before trusting the table. Row/column delimiter, quote character and header settings in the Copy activity directly affect data quality downstream.
 
 ### Lab 02 – Duplicate rows after re-running the notebook
+
 **Symptom:** `sales` had 65,436 rows; `new_sales` had 32,718.
+
 **Cause:** The notebook writes with `.mode("append")`, so each run added the full dataset again.
+
 **Fix:** `DELETE FROM dbo.sales` in Spark SQL, re-ran once, verified counts via the SQL analytics endpoint.
+
 **Lesson:** Use `overwrite` or `MERGE` for re-runnable loads.
 
 ### Lab 02 – Spark capacity error 430 (TooManyRequestsForCapacity)
+
 **Cause:** A notebook and a Spark SQL query each held a Spark session on the trial capacity.
+
 **Fix:** Stopped idle sessions / cancelled in Monitor hub; used the SQL analytics endpoint (no Spark) for read-only checks.
 
 ## Skills
