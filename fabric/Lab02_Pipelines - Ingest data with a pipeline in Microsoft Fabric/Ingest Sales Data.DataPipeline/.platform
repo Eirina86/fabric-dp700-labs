@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "Ingest Sales Data"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6b896cd5-3e52-aff1-4999-ac738555e64c"
+  }
+}

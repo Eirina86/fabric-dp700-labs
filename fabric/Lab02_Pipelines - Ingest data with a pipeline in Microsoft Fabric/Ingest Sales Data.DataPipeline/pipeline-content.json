@@ -1,0 +1,174 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "HttpReadSettings",
+              "requestMethod": "GET"
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "HttpServerLocation"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true,
+                "multiline": false
+              },
+              "schema": [],
+              "externalReferences": {
+                "connection": "c345d78a-a338-4776-9116-019b06cd3556"
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DelimitedTextSink",
+            "formatSettings": {
+              "type": "DelimitedTextWriteSettings",
+              "fileExtension": ".txt"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageWriteSettings"
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "new_data",
+                  "fileName": "sales.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "Lab02_Lakehouse",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "736f1bdc-2150-a757-4e94-ff3d6ce38603",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy data",
+        "dependsOn": [
+          {
+            "activity": "Delete Old Files",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Delete",
+        "typeProperties": {
+          "enableLogging": false,
+          "datasetSettings": {
+            "type": "Binary",
+            "typeProperties": {
+              "location": {
+                "type": "LakehouseLocation",
+                "folderPath": "new_data"
+              }
+            },
+            "linkedService": {
+              "name": "Lab02_Lakehouse",
+              "properties": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "artifactId": "736f1bdc-2150-a757-4e94-ff3d6ce38603",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000",
+                  "rootFolder": "Files"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "storeSettings": {
+            "type": "LakehouseReadSettings",
+            "recursive": true,
+            "wildcardFileName": "*.csv",
+            "enablePartitionDiscovery": false
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Delete Old Files",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "e5bd1c1a-8d5d-bb13-4669-579b155d8595",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "table_name": {
+              "value": "dbo.new_sales",
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Load Data Sales",
+        "dependsOn": [
+          {
+            "activity": "Copy data",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
