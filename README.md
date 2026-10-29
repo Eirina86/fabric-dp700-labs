@@ -21,15 +21,21 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 ## Problems solved
 
-### Lab 01 
+---
+
+### 🔹 Lab 01 – Analyse data with Apache Spark
 
 **CSV with no header row:** `header=true` turned the first order into column names and broke `display()`. Fixed with `header=false` and a defined schema.
 
 **NameError in the lab script:** the partitioning step referenced `orders_df`, which was never created. Fixed by using `transformed_df`.
 
 **GitHub option greyed out in Fabric:** GitHub sync is off by default at tenant level. Assigned the Fabric Administrator role and enabled the Git integration tenant settings.
-  
-### Lab 02 – Alternating NULL rows after pipeline ingestion
+
+---
+
+### 🔹 Lab 02 – Ingest data with a pipeline
+
+#### Alternating NULL rows after pipeline ingestion
 
 **Symptom:** The `sales` table showed every second row as NULL, with a lone `"` in `SalesOrderNumber`. The copied `Files/new_data/sales.csv` had a `"` on its own line after every record.
 
@@ -39,7 +45,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **Lesson:** Always preview ingested files before trusting the table. Row/column delimiter, quote character and header settings in the Copy activity directly affect data quality downstream.
 
-### Lab 02 – Duplicate rows after re-running the notebook
+#### Duplicate rows after re-running the notebook
 
 **Symptom:** `sales` had 65,436 rows; `new_sales` had 32,718.
 
@@ -49,13 +55,17 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **Lesson:** Use `overwrite` or `MERGE` for re-runnable loads.
 
-### Lab 02 – Spark capacity error 430 (TooManyRequestsForCapacity)
+#### Spark capacity error 430 (TooManyRequestsForCapacity)
 
 **Cause:** A notebook and a Spark SQL query each held a Spark session on the trial capacity.
 
 **Fix:** Stopped idle sessions / cancelled in Monitor hub; used the SQL analytics endpoint (no Spark) for read-only checks.
 
-### Lab 03 – TABLE_OR_VIEW_NOT_FOUND
+---
+
+### 🔹 Lab 03 – Use Delta tables in Apache Spark
+
+#### TABLE_OR_VIEW_NOT_FOUND
 
 **Cause:** Lab code uses example names (`dp_workspace.delta_lakehouse.dbo.products_table`) that don't match my workspace and lakehouse.
 
@@ -63,6 +73,8 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **Lesson:** Lab text and screenshots use different example names; always substitute your own.
 
+---
+
 ## Skills
 
-PySpark · Delta Lake · Fabric Lakehouse · Spark SQL · partitioning · Fabric Git integration · tenant settings · least-privilege access
+PySpark · Delta Lake · time travel · Structured Streaming · Fabric Lakehouse · Spark SQL · partitioning · Data pipelines · SQL analytics endpoint · Fabric Git integration · tenant settings · least-privilege access
