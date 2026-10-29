@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Transform data for Gold"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "17ce257e-1b69-8973-46e0-6c387fb9b024"
+  }
+}

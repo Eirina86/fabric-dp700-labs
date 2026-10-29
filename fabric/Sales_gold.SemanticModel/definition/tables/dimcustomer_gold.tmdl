@@ -1,0 +1,69 @@
+table dimcustomer_gold
+	lineageTag: db268231-a1d0-4f68-b75f-b3847feb6ab5
+	sourceLineageTag: [dbo].[dimcustomer_gold]
+
+	column CustomerName
+		dataType: string
+		lineageTag: 8dcb1331-90c9-410e-a4d9-3ce7b431b0f5
+		sourceLineageTag: CustomerName
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: b46b40df-c163-4345-870d-25753cea43e4
+		sourceLineageTag: Email
+		summarizeBy: none
+		sourceColumn: Email
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column First
+		dataType: string
+		lineageTag: bd74ddb5-0eaa-4986-a164-9b81b1b172f9
+		sourceLineageTag: First
+		summarizeBy: none
+		sourceColumn: First
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Last
+		dataType: string
+		lineageTag: 0d8e702b-d763-4586-8031-ab6c1a3fd132
+		sourceLineageTag: Last
+		summarizeBy: none
+		sourceColumn: Last
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fc9b04a-086c-4c24-8fd3-b0cca94f096b
+		sourceLineageTag: CustomerID
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimcustomer_gold = entity
+		mode: directLake
+		source
+			entityName: dimcustomer_gold
+			schemaName: dbo
+			expressionSource: 'DirectLake - Lab05_Lakehouse'
+
+	changedProperty = IsHidden
+
