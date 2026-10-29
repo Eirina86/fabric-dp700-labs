@@ -18,6 +18,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | 01 | Analyse data with Apache Spark | Loaded three years of sales CSVs with an explicit schema, added Year/Month columns, saved partitioned Parquet, queried with Spark SQL | ✅ Done |
 | 02 | Ingest data with a pipeline | Copy data, Delete data, Notebook activity, base parameters | ✅ Done |
 | 03 | Use Delta tables in Apache Spark | Managed & external tables, table versioning/time travel, Spark SQL queries, Structured Streaming into a Delta table | ✅ Done |
+| 04 | Create and use Dataflows (Gen2) | Power Query transformations, custom column, lakehouse destination (Append), dataflow activity in a pipeline | ✅ Done |
 
 ## Problems solved
 
@@ -74,6 +75,28 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Lesson:** Lab text and screenshots use different example names; always substitute your own.
 
 ---
+
+### 🔹 Lab 04 – Create and use Dataflows (Gen2)
+
+#### Default destination couldn't be edited
+
+**Observation:** Creating the dataflow from the lakehouse added a default destination (Replace, auto mapping). It can only be viewed, not edited, and it greys out *Add data destination* because a query can only have one destination.
+
+**Fix:** Removed the default destination (✕) and re-added Lab04_Lakehouse with **Append**, as the lab instructs.
+
+#### Duplicate rows from Append
+
+**Symptom:** `orders` had 1,084 rows but only 542 unique (SalesOrderID + LineItem).
+
+**Cause:** The dataflow ran twice (Save & run, then the pipeline), and Append added the full dataset each time.
+
+**Check:** `COUNT(*)` vs `COUNT(DISTINCT CONCAT(SalesOrderID, '-', LineItem))` on the SQL analytics endpoint.
+
+**Lesson:** Append keeps adding; Replace overwrites. Same trade-off as Spark `append` vs `overwrite`.
+
+---
+
+
 
 ## Skills
 
