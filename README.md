@@ -46,6 +46,8 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **Lesson:** Always preview ingested files before trusting the table. Row/column delimiter, quote character and header settings in the Copy activity directly affect data quality downstream.
 
+---
+
 #### Duplicate rows after re-running the notebook
 
 **Symptom:** `sales` had 65,436 rows; `new_sales` had 32,718.
@@ -53,6 +55,8 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Cause:** The notebook writes with `.mode("append")`, so each run added the full dataset again.
 
 **Fix:** `DELETE FROM dbo.sales` in Spark SQL, re-ran once, verified counts via the SQL analytics endpoint.
+
+---
 
 **Lesson:** Use `overwrite` or `MERGE` for re-runnable loads.
 
@@ -83,6 +87,8 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Observation:** Creating the dataflow from the lakehouse added a default destination (Replace, auto mapping). It can only be viewed, not edited, and it greys out *Add data destination* because a query can only have one destination.
 
 **Fix:** Removed the default destination (✕) and re-added Lab04_Lakehouse with **Append**, as the lab instructs.
+
+---
 
 #### Duplicate rows from Append
 
