@@ -10,6 +10,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 - GitHub sync enabled through the Fabric admin portal tenant settings, using a dedicated Fabric Administrator account (least privilege)
 - Workspace connected to this repo with a fine-grained token scoped to this repository only (Contents: read and write)
 - After each lab: **Source control → Commit** from the workspace
+  
 
 ## Lab log
 
@@ -19,6 +20,9 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | 02 | Ingest data with a pipeline | Copy data, Delete data, Notebook activity, base parameters | ✅ Done |
 | 03 | Use Delta tables in Apache Spark | Managed & external tables, table versioning/time travel, Spark SQL queries, Structured Streaming into a Delta table | ✅ Done |
 | 04 | Create and use Dataflows (Gen2) | Power Query transformations, custom column, lakehouse destination (Append), dataflow activity in a pipeline | ✅ Done |
+| 05 | Medallion architecture in a lakehouse | Bronze CSV ingest, silver Delta table with data quality fixes, gold star schema (fact + 3 dimensions) via MERGE upserts, Sales_Gold semantic model with relationships | ✅ Done |
+
+---
 
 ## Problems solved
 
@@ -102,6 +106,23 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 ---
 
+### 🔹 Lab 05 – Medallion architecture
+
+#### DoesNotExistException: Artifact not found `DP700-Labs`.`sales`
+
+**Cause:** Lab code uses `sales.dbo.sales_silver`, where `sales` is the lab's lakehouse name.
+
+**Fix:** Replaced `sales.dbo.` with `dbo.` throughout, since the notebook's default lakehouse is attached.
+
+---
+
+#### "New SQL query" missing
+
+**Cause:** The lakehouse view only offers *New Spark SQL query*.
+
+**Fix:** Switched the top-right dropdown to **SQL analytics endpoint**.
+
+---
 
 
 ## Skills
