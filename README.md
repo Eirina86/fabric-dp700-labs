@@ -17,6 +17,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 |---|-----|--------------|--------|
 | 01 | Analyse data with Apache Spark | Loaded three years of sales CSVs with an explicit schema, added Year/Month columns, saved partitioned Parquet, queried with Spark SQL | ✅ Done |
 | 02 | Ingest data with a pipeline | Copy data, Delete data, Notebook activity, base parameters | ✅ Done |
+| 03 | Use Delta tables in Apache Spark | Managed & external tables, table versioning/time travel, Spark SQL queries, Structured Streaming into a Delta table | ✅ Done |
 
 ## Problems solved
 
@@ -53,6 +54,14 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Cause:** A notebook and a Spark SQL query each held a Spark session on the trial capacity.
 
 **Fix:** Stopped idle sessions / cancelled in Monitor hub; used the SQL analytics endpoint (no Spark) for read-only checks.
+
+### Lab 03 – TABLE_OR_VIEW_NOT_FOUND
+
+**Cause:** Lab code uses example names (`dp_workspace.delta_lakehouse.dbo.products_table`) that don't match my workspace and lakehouse.
+
+**Fix:** Used just the table name, since the notebook's default lakehouse is attached.
+
+**Lesson:** Lab text and screenshots use different example names; always substitute your own.
 
 ## Skills
 
