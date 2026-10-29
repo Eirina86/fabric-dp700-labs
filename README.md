@@ -56,9 +56,9 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 
 **Fix:** `DELETE FROM dbo.sales` in Spark SQL, re-ran once, verified counts via the SQL analytics endpoint.
 
----
-
 **Lesson:** Use `overwrite` or `MERGE` for re-runnable loads.
+
+---
 
 #### Spark capacity error 430 (TooManyRequestsForCapacity)
 
