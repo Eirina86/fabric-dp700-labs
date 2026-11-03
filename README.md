@@ -22,6 +22,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | 04 | Create and use Dataflows (Gen2) | Power Query transformations, custom column, lakehouse destination (Append), dataflow activity in a pipeline | ✅ Done |
 | 05 | Medallion architecture in a lakehouse | Bronze CSV ingest, silver Delta table with data quality fixes, gold star schema (fact + 3 dimensions) via MERGE upserts, Sales_Gold semantic model with relationships | ✅ Done |
 | 06 | Get started with Real-Time Intelligence | Eventstream ingesting live stock data into an Eventhouse (KQL database), KQL queries, real-time dashboard, Activator alert rule | ✅ Done |
+| 07 | Work with data in a Microsoft Fabric eventhouse | Bike Rental sample (Eventstream → Eventhouse/KQL database), KQL queries (where, project, summarize, bin), T-SQL against a KQL database, real-time dashboard | ✅ Done |
 
 ---
 
