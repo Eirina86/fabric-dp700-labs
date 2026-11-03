@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "02b5b31f-0892-4270-a7ce-a3ab9e88666e",
+        "clusterUri": "https://trd-ynmcywmhf8c0rsdmhf.z0.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "d8fda58d-bf8a-4fc6-8640-30424d5f30b7"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "2f3b9e54-fc03-4f49-a853-9e38a16019fe",
+        "content": " stock\n | where todatetime([\"time\"]) > ago(5m)\n | summarize avgPrice = avg(todecimal(bidPrice)) by symbol\n | project symbol, avgPrice",
+        "title": "Tab",
+        "dataSourceId": "02b5b31f-0892-4270-a7ce-a3ab9e88666e"
+      }
+    ],
+    "querysetType": "Embedded"
+  }
+}

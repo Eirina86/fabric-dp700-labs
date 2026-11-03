@@ -1,0 +1,109 @@
+{
+  "schema_version": 88,
+  "flavor": "RTDashboard_Regular",
+  "changeDetection": {
+    "kind": "liveUpdates",
+    "fallbackRefreshRate": "1m",
+    "minRefreshRate": "10s",
+    "minRefreshRate_V2": "10s"
+  },
+  "tiles": [
+    {
+      "id": "819232aa-25bb-4e30-bbaf-28e743384d9e",
+      "title": "New Tile",
+      "visualType": "column",
+      "pageId": "1deb67d5-4f9c-44f4-87d5-cce9642eee32",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 9,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "49f5a8c5-7679-4c2a-8218-3fbb5970b08a"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilter": [],
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "drillthrough": [],
+        "selectedDataOnLoad": {
+          "all": true,
+          "limit": 10
+        }
+      }
+    }
+  ],
+  "baseQueries": [],
+  "parameters": [
+    {
+      "kind": "duration",
+      "id": "31f856cc-f976-4eb8-aab2-3b0dcaeb2d72",
+      "displayName": "Time range",
+      "description": "",
+      "beginVariableName": "_startTime",
+      "endVariableName": "_endTime",
+      "defaultValue": {
+        "kind": "dynamic",
+        "count": 1,
+        "unit": "hours"
+      },
+      "showOnPages": {
+        "kind": "all"
+      }
+    }
+  ],
+  "dataSources": [
+    {
+      "id": "bf6c8fd2-0652-4e90-8aee-495673b7da87",
+      "kind": "kusto-trident",
+      "name": "Lab06_Eventhouse",
+      "clusterUri": "",
+      "databaseArtifactId": "d8fda58d-bf8a-4fc6-8640-30424d5f30b7",
+      "database": "4d5f30b7-3042-8640-4fc6-bf8ad8fda58d",
+      "workspace": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Page 1",
+      "id": "1deb67d5-4f9c-44f4-87d5-cce9642eee32"
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "bf6c8fd2-0652-4e90-8aee-495673b7da87"
+      },
+      "text": " stock\n | where todatetime([\"time\"]) > ago(5m)\n | summarize avgPrice = avg(todecimal(bidPrice)) by symbol\n | project symbol, avgPrice",
+      "id": "49f5a8c5-7679-4c2a-8218-3fbb5970b08a",
+      "usedVariables": []
+    }
+  ],
+  "embeddedApps": []
+}
