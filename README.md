@@ -21,6 +21,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | 03 | Use Delta tables in Apache Spark | Managed & external tables, table versioning/time travel, Spark SQL queries, Structured Streaming into a Delta table | ✅ Done |
 | 04 | Create and use Dataflows (Gen2) | Power Query transformations, custom column, lakehouse destination (Append), dataflow activity in a pipeline | ✅ Done |
 | 05 | Medallion architecture in a lakehouse | Bronze CSV ingest, silver Delta table with data quality fixes, gold star schema (fact + 3 dimensions) via MERGE upserts, Sales_Gold semantic model with relationships | ✅ Done |
+| 06 | Get started with Real-Time Intelligence | Eventstream ingesting live stock data into an Eventhouse (KQL database), KQL queries, real-time dashboard, Activator alert rule | ✅ Done |
 
 ---
 
