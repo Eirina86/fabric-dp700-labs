@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "2264fb35-c88b-443e-96b2-40b84baac3d8",
+        "clusterUri": "https://trd-aq4tmx70z8gr11yhrj.z9.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "2e56be3a-1137-4bc9-be56-aaf5013cd2f1"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "c3185814-b687-4877-92d8-4286b1cff647",
+        "content": " SELECT CASE\n          WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'\n          ELSE Neighbourhood\n        END AS Neighbourhood,\n        SUM(No_Bikes) AS [Total Number of Bikes]\n FROM Bikestream\n GROUP BY CASE\n            WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'\n            ELSE Neighbourhood\n          END\n HAVING Neighbourhood = 'Chelsea'\n ORDER BY Neighbourhood ASC;",
+        "title": "Tab",
+        "dataSourceId": "2264fb35-c88b-443e-96b2-40b84baac3d8"
+      }
+    ],
+    "querysetType": "Embedded"
+  }
+}

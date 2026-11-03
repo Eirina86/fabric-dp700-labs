@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventhouse",
+    "displayName": "Bike_Eventhouse",
+    "description": "Bike_Eventhouse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "24a74849-23dc-8559-4f1f-aa92e821e215"
+  }
+}

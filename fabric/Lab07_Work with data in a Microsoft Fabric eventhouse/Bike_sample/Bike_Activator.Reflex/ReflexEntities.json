@@ -1,0 +1,86 @@
+[
+  {
+    "uniqueIdentifier": "3cc4bcee-a2ee-49c6-9d5d-f12cffd72cd4",
+    "payload": {
+      "name": "Bike_RTDashboard",
+      "type": "kqlQueries"
+    },
+    "type": "container-v1"
+  },
+  {
+    "uniqueIdentifier": "7c15e30f-cf97-4804-b39a-656f183a8887",
+    "payload": {
+      "name": "Bicycles event",
+      "runSettings": {
+        "isStopped": false,
+        "executionIntervalInSeconds": 86400
+      },
+      "query": {
+        "queryString": "declare query_parameters (startTime:datetime, _placeHolder__end:datetime);\nlet InNeighborhood = dynamic(null);\nlet InStreet = dynamic(null);\nlet FilterBikeStream = () {\n    Bikestream\n    | where isempty(['InNeighborhood']) or Neighbourhood in (['InNeighborhood'])\n    | where isempty(['InStreet']) or Street in (['InStreet'])\n    | extend ingestionTime = ingestion_time()\n    | extend fill_rate = toreal(No_Bikes) / (No_Bikes + No_Empty_Docks)\n};\nlet minimumTime = toscalar(FilterBikeStream | summarize min(ingestionTime));\nlet from=max_of(startTime, minimumTime);\nFilterBikeStream\n| make-series emptyDocks=max(No_Empty_Docks)  default=int(null)\n    on ingestionTime from from to now() step max_of((now() - from)/100, 1d) by BikepointID\n| extend emptyDocks = series_fill_linear(emptyDocks)\n| mvexpand emptyDocks, ingestionTime\n| summarize ['Available Docks'] = sum(toint(emptyDocks)) by todatetime(ingestionTime)"
+      },
+      "eventhouseItem": {
+        "itemId": "013cd2f1-aaf5-be56-4bc9-11372e56be3a",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemType": "KustoDatabase"
+      },
+      "eventTimeSettings": {
+        "ingestionDelayInSeconds": 0,
+        "timeFieldName": "ingestionTime"
+      },
+      "queryParameters": [
+        {
+          "name": "startTime",
+          "type": "DURATION_START",
+          "value": "datetime(2025-07-28T17:54:41Z)"
+        },
+        {
+          "name": "_placeHolder__end",
+          "type": "DURATION_END",
+          "value": "datetime(2025-07-28T18:54:41Z)"
+        }
+      ],
+      "metadata": {
+        "workspaceId": "f8266e45-5729-484c-863d-e4095ec3294a",
+        "measureName": "Available Docks",
+        "dashboardId": "30f03b7b-465e-47a3-9c16-d837bb18d9a0",
+        "visualId": "f4276e74-e8d0-4433-a998-7aaf61d4f2e9"
+      },
+      "parentContainer": {
+        "targetUniqueIdentifier": "3cc4bcee-a2ee-49c6-9d5d-f12cffd72cd4"
+      }
+    },
+    "type": "kqlSource-v1"
+  },
+  {
+    "uniqueIdentifier": "c4b94065-2665-410a-a7ea-48b51cb6ec0a",
+    "payload": {
+      "name": "Bicycles event",
+      "parentContainer": {
+        "targetUniqueIdentifier": "3cc4bcee-a2ee-49c6-9d5d-f12cffd72cd4"
+      },
+      "definition": {
+        "type": "Event",
+        "instance": "{\"templateId\":\"SourceEvent\",\"templateVersion\":\"1.1\",\"steps\":[{\"name\":\"SourceEventStep\",\"id\":\"349f350a-70e8-4f16-9641-a6cbdc14c18c\",\"rows\":[{\"name\":\"SourceSelector\",\"kind\":\"SourceReference\",\"arguments\":[{\"name\":\"entityId\",\"type\":\"string\",\"value\":\"7c15e30f-cf97-4804-b39a-656f183a8887\"}]}]}]}"
+      }
+    },
+    "type": "timeSeriesView-v1"
+  },
+  {
+    "uniqueIdentifier": "c8760133-4c25-4493-8616-6ad9313d70c7",
+    "payload": {
+      "name": "Bicycles alert",
+      "parentContainer": {
+        "targetUniqueIdentifier": "3cc4bcee-a2ee-49c6-9d5d-f12cffd72cd4"
+      },
+      "definition": {
+        "type": "Rule",
+        "instance": "{\"templateId\":\"EventTrigger\",\"templateVersion\":\"1.1\",\"steps\":[{\"name\":\"FieldsDefaultsStep\",\"id\":\"caba8d15-8a84-48fd-befc-2b1782ee49ce\",\"rows\":[{\"name\":\"EventSelector\",\"kind\":\"Event\",\"arguments\":[{\"kind\":\"EventReference\",\"type\":\"complex\",\"arguments\":[{\"name\":\"entityId\",\"type\":\"string\",\"value\":\"c4b94065-2665-410a-a7ea-48b51cb6ec0a\"}],\"name\":\"event\"}]}]},{\"name\":\"EventDetectStep\",\"id\":\"4692c162-da39-4ae7-bbd7-653471679466\",\"rows\":[{\"name\":\"EventFieldSelector\",\"kind\":\"EventField\",\"arguments\":[{\"name\":\"fieldName\",\"type\":\"string\",\"value\":\"Available Docks\"}]},{\"name\":\"NumberValueCondition\",\"kind\":\"NumberValueCondition\",\"arguments\":[{\"name\":\"op\",\"type\":\"string\",\"value\":\"IsGreaterThanOrEqualTo\"},{\"name\":\"threshold\",\"type\":\"number\",\"value\":1500.0}]}]},{\"name\":\"ActStep\",\"id\":\"6729047a-8cfc-413f-b4a4-1c4694954b9e\",\"rows\":[{\"name\":\"EmailBinding\",\"kind\":\"EmailMessage\",\"arguments\":[{\"name\":\"messageLocale\",\"type\":\"string\",\"value\":\"\"},{\"name\":\"sentTo\",\"type\":\"array\",\"values\":[{\"type\":\"string\",\"value\":\"irina@cazacuirinaymail.onmicrosoft.com\"}]},{\"name\":\"copyTo\",\"type\":\"array\",\"values\":[]},{\"name\":\"bCCTo\",\"type\":\"array\",\"values\":[]},{\"name\":\"subject\",\"type\":\"array\",\"values\":[{\"type\":\"string\",\"value\":\"Activator Alert: Daily Available Docks Report\"}]},{\"name\":\"headline\",\"type\":\"array\",\"values\":[{\"type\":\"string\",\"value\":\"New event from Bicycles\"}]},{\"name\":\"optionalMessage\",\"type\":\"array\",\"values\":[{\"type\":\"string\",\"value\":\"\"}]},{\"name\":\"additionalInformation\",\"type\":\"array\",\"values\":[]}]}]}]}",
+        "settings": {
+          "shouldRun": true,
+          "shouldApplyRuleOnUpdate": false
+        }
+      }
+    },
+    "type": "timeSeriesView-v1"
+  }
+]
