@@ -24,6 +24,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | 06 | Get started with Real-Time Intelligence | Eventstream ingesting live stock data into an Eventhouse (KQL database), KQL queries, real-time dashboard, Activator alert rule | ✅ Done |
 | 07 | Work with data in a Microsoft Fabric eventhouse | Bike Rental sample (Eventstream → Eventhouse/KQL database), KQL queries (where, project, summarize, bin), T-SQL against a KQL database, real-time dashboard | ✅ Done |
 | 08 | Ingest real-time data with Eventstream | Eventstream from bicycle sample data, Eventhouse destinations (raw + aggregated), Group by transform (Sum of No_Bikes by Street, 5-second tumbling window), KQL queries on the transformed table | ✅ Done |
+| 09 | Analyze data in a data warehouse | Fabric Warehouse with T-SQL CREATE TABLE/INSERT, star schema (FactSalesOrder + 3 dimensions) via script, aggregation query with joins, vSalesByRegion view, no-code visual query | ✅ Done |
 
 ---
 
