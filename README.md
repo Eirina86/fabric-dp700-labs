@@ -23,6 +23,7 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 | 05 | Medallion architecture in a lakehouse | Bronze CSV ingest, silver Delta table with data quality fixes, gold star schema (fact + 3 dimensions) via MERGE upserts, Sales_Gold semantic model with relationships | ✅ Done |
 | 06 | Get started with Real-Time Intelligence | Eventstream ingesting live stock data into an Eventhouse (KQL database), KQL queries, real-time dashboard, Activator alert rule | ✅ Done |
 | 07 | Work with data in a Microsoft Fabric eventhouse | Bike Rental sample (Eventstream → Eventhouse/KQL database), KQL queries (where, project, summarize, bin), T-SQL against a KQL database, real-time dashboard | ✅ Done |
+| 08 | Ingest real-time data with Eventstream | Eventstream from bicycle sample data, Eventhouse destinations (raw + aggregated), Group by transform (Sum of No_Bikes by Street, 5-second tumbling window), KQL queries on the transformed table | ✅ Done |
 
 ---
 
@@ -125,6 +126,20 @@ Everything in the [`fabric`](fabric) folder is committed straight from the works
 **Fix:** Switched the top-right dropdown to **SQL analytics endpoint**.
 
 ---
+
+### 🔹 Lab 08 – Ingest real-time data with Eventstream
+
+#### "No input source is configured" on publish
+**Cause:** Components were added but not linked; dotted lines on the canvas mean "not connected", and an empty placeholder operator was left behind.
+**Fix:** Removed the placeholder and used the **⊕ (Append a component)** button on the stream, which adds the destination already connected.
+
+#### `Failed to resolve scalar expression named 'Street'`
+
+**Cause:** The Group by operator was published without a value in *Group aggregations by*, so the destination table was created with only `SUM_No_Bikes` and `Window_End_Time`. Fixing the operator later doesn't add columns to an existing table.
+
+**Fix:** Set *Group aggregations by* = `Street`, deleted the old destination, re-added it with a new table (`bikes-by-street-v3`), republished, and checked the schema with `| getschema`.
+
+**Lesson:** In an Eventstream Group by, the grouping fields become output columns, so set them before the first publish.
 
 
 ## Skills
