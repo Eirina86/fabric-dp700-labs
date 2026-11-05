@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "96b0634a-11fd-44a4-a093-35b79d515b26",
+        "clusterUri": "https://trd-hbp4yk4t82zjbhw52h.z9.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "53dc5aa7-0f51-4cd4-99b8-fb4826976ddd"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "2144a12e-87e8-4d04-9e5e-b51430219213",
+        "content": " ['bikes-by-street-v3']\n | summarize TotalBikes = sum(tolong(SUM_No_Bikes)) by Window_End_Time, Street\n | sort by Window_End_Time desc , Street asc",
+        "title": "Tab",
+        "dataSourceId": "96b0634a-11fd-44a4-a093-35b79d515b26"
+      }
+    ],
+    "querysetType": "Embedded"
+  }
+}
